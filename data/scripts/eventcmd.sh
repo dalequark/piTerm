@@ -1,0 +1,1 @@
+/Users/Dale/.config/pianobar/scripts/eventcmd.sh

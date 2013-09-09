@@ -1,0 +1,61 @@
+<html>
+  <head>
+
+<script src="/scripts/jquery.min.js"></script>
+<script src="/scripts/knockout.js"></script>
+<script src="/scripts/bootstrap.min.js"></script>
+
+
+    <title>PiTerm</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12" id="banner"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-xs-6 coverartDiv">
+          <img id="coverart" class="img-rounded" data-bind="attr:{src: coverart}"> 
+          </img>
+        </div>
+        <div id="metadata" class="col-md-12 col-xs-6">
+          <h1 data-bind="text: songName">Song Name</h1>
+          <h2 data-bind="text: artistName">Artist Name</h2>
+          <h2 data-bind="text: albumName">Album</h2>
+        </div>
+    </div>
+ 
+
+<script type="text/javascript">
+
+    // knockout stuff
+      function ViewModel() {
+        this.songName = ko.observable("SongTitle");
+        this.artistName = ko.observable("ArtistName");
+        this.albumName = ko.observable("AlbumName");
+
+        // Even if the url of coverart doesn't change, make sure to refresh it.
+        this.coverart = ko.observable("./coverart.jpg").extend({ notify : 'always'});
+
+     }
+     
+     ko.applyBindings(this.viewModel = new ViewModel());
+
+</script>
+
+<script type="text/javascript">
+  //Ghetto stylings
+  var width = $(window).width();
+  var height = $(window).height();
+  $('#coverart').width(width*2/5);
+</script>
+
+
+  </body>
+</html>
+
+<!-- Do all the includes! Also, slim down all of the downloaded bootstrap stuff-->
+<link href="/style/bootstrap.min.css" rel="stylesheet">
