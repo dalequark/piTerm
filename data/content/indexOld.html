@@ -9,7 +9,7 @@
     <title>PiTerm</title>
     <link rel="stylesheet" href="style.css">
   </head>
-  <body data-bind="style: { backgroundImage: 'url(coverart)' }">
+  <body>
 
       <div class="row">
         <div class="col-md-12 col-xs-12 banner"></div>
@@ -17,11 +17,20 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12 col-xs-12">
-          <h1 data-bind="text: songName">Song Name</h1>
-          <h2 data-bind="text: artistName">Artist Name</h2>
-          <h2 data-bind="text: albumName">Album</h2>
+        <div class="col-md-12 col-xs-5 coverart">
+          <div class="col-md-1 col-xs-1"></div>
+          <div class="col-md-11 col-xs-11">
+            <img id="coverart" class="img-rounded" data-bind="attr:{src: coverart}"> 
+          </div>
         </div>
+
+        <div class="col-md-12 col-xs-6">
+          <div class="col-md-2 col-xs-2"></div>
+          <div class="col-md-10 col-xs-10">
+            <h1 data-bind="text: songName">Song Name</h1>
+            <h2 data-bind="text: artistName">Artist Name</h2>
+            <h2 data-bind="text: albumName">Album</h2>
+          </div>
         </div>
     </div>
  
@@ -39,7 +48,7 @@
         this.albumName = ko.observable("AlbumName");
 
         // Even if the url of coverart doesn't change, make sure to refresh it.
-        this.coverart = ko.observable().extend({ notify : 'always'});
+        this.coverart = ko.observable("./coverart.jpg").extend({ notify : 'always'});
 
      }
      
@@ -51,6 +60,7 @@
   //Ghetto stylings
   var width = $(window).width();
   var height = $(window).height();
+  $('#coverart').width(width*2/5);
   $('.banner').height(height/6);
 </script>
 

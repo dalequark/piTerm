@@ -3,10 +3,11 @@ var express = require('express'),
     utils = require('util'),
     http = require('http'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    child = require('child_process');
  
  const COVERART_FOLDER = path.join(__dirname, 'content/coverart');
-
+ //child.spawn("pianobar").stdout.on('data', function(){});
 // Create express server
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -59,24 +60,38 @@ window.on('ready', function(){
    * Set up the express routes
    */
 
+
   app.get('/songChange', function(req, res)
   {
-    for(val in req.query)
-    {
-      window.viewModel[val](req.query[val]);
-    }
+    console.log("%o", req.query);
+    var obj = req.query;
+    if(obj.songName)    window.viewModel["songName"](obj.songName);
+    if(obj.albumName)   window.viewModel["albumName"](obj.albumName);
+    if(obj.artistName)  window.viewModel["artistName"](obj.artistName);
+
 
     fs.readdir(COVERART_FOLDER, function(err, filepath)
     {
         if(!err)     //If there is an error loading images, just forget it.
         {
-          window.viewModel["coverart"] = filepath;
-          console.log("file path is " + filepath);
+          console.log(filepath[0]);
+          window.viewModel["coverart"](filepath[0]);
         }
         res.writeHead('200');
         res.end();
     });
 
+  });
+
+  app.get('/coverart', function(req, res)
+  {
+    fs.readFile(path.join(COVERART_FOLDER, window.viewModel.coverart), function(err, file)
+    {
+      if(err)
+        console.log(err);
+      res.writeHead(200, {'Content-Type': 'image/jpeg'});
+      res.end(file);
+    });
   });
 
 });

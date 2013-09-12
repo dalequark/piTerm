@@ -1,13 +1,14 @@
-.coverartDiv
+.coverart
 {
-	text-align: center;
+
 }
 
-#banner
+.banner
 {
 	height:50px;
 }
-div
+
+.metadata
 {
-	text-align: center;
+	background:black;
 }
